@@ -1,0 +1,4 @@
+/node_modules 
+/build
+#ignoring possible trash from gitlab
+.gitlab* 

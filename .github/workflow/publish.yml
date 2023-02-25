@@ -1,22 +1,27 @@
 name: Publish 
 on:
   push:
-    branches: [master]
+    branches: [ "master" ]
+  pull-request:
+    branches: ["master"]
+
+    # for possible necessary rebuilds 
+    workflow_dispatch: 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repo 
+      - name: Checkout repo 
       uses: actions/checkout@v2
-    - name: Install node
+      - name: Install node
       uses: actions/setup-node@v2
       with:
         node-version: '16'
-    - name: Install antora 
+      - name: Install antora 
       run: npm i antora 
-    - name: Build 
+      - name: Build 
       run: npx antora --fetch --to-dir public antora-playbook.yml
-    - name: Publish to GH Pages
+      - name: Publish to GH Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
